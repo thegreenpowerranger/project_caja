@@ -15,12 +15,11 @@ def write_guestbook():
 
     name = st.text_input("Name")
     message = st.text_area("Message")
-    if st.button("Vorschau"):
-        st.write(message)
-        if st.button("Abschickä"):
-            db.add_entry(name, message)
-            entries = db.get_entries()  # Refresh entries after adding a new one
-            st.success("Your entry has been added!")
+    if st.button("Abschickä"):
+        db.add_entry(name, message)
+        entries = db.get_entries()  # Refresh entries after adding a new one
+        st.success("Your entry has been added!")
+            
     st.header("All Entries")
     if not entries:
         st.info("There are no entries yet.")
@@ -77,6 +76,3 @@ if choice == "Guestbook":
     write_guestbook()
 else:
     write_admin()
-
-
-
