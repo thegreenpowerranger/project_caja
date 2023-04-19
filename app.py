@@ -17,7 +17,7 @@ def write_guestbook():
     message = st.text_area("Message")
     if st.button("Abschickä"):
         db.add_entry(name, message)
-        entries = db.get_entries()  # Refresh entries after adding a new one
+        #entries = db.get_entries()  # Refresh entries after adding a new one
         st.success("Your entry has been added!")
             
     st.header("All Entries")
