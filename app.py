@@ -1,5 +1,5 @@
 import streamlit as st
-import db
+import db_deta
 
 def write_guestbook():
     st.title("Digitals Gäschtebuäch :woman-raising-hand: :man-raising-hand:")
@@ -11,13 +11,13 @@ def write_guestbook():
         - wunderschöne Ausflugsorte
         - oder was du sonst gerne loswerden möchtest!
         """)
-    entries = db.get_entries()
+    entries = db_deta.get_entries()
 
     name = st.text_input("Name")
     message = st.text_area("Message")
     if st.button("Abschickä"):
-        db.add_entry(name, message)
-        entries = db.get_entries()  # Refresh entries after adding a new one
+        db_deta.add_entry(name, message)
+        entries = db_deta.get_entries()  # Refresh entries after adding a new one
         st.success("Your entry has been added!")
             
     st.header("All Entries")
@@ -39,17 +39,17 @@ def write_admin():
     # Check if the password is correct
     if password == "9999":
         st.header("Guestbook Entries")
-        entries = db.get_entries()
+        entries = db_deta.get_entries()
 
     # Display all entries with a checkbox for each one
     delete_ids = []
     for entry in entries:
-        if st.checkbox(f"{entry['id']}: {entry['name']}: {entry['message']} ({str(entry['created_at'])})"):
-            delete_ids.append(entry['id'])
+        if st.checkbox(f"{entry['key']}: {entry['name']}: {entry['message']} ({str(entry['created_at'])})"):
+            delete_ids.append(entry['key'])
 
     if delete_ids:
         if st.button('Are you sure to delete this comment?'):
-            db.delete_entries(delete_ids)
+            db_deta.delete_entries(delete_ids)
             st.success("Selected entries have been deleted.")
         else:
             st.write('Nothing done')
@@ -69,6 +69,7 @@ st.set_page_config(page_title="Guestbook App", page_icon=":book:", layout="cente
 
 menu = ["Guestbook", "Admin Panel"]
 choice = st.sidebar.selectbox("Select a page", menu)
+
 
 st.image('Bildschirm­foto 2023-04-17 um 12.34.02 PM.png')
 
