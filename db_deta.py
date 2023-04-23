@@ -1,6 +1,8 @@
 import deta
 from datetime import datetime
 
+deta_key = deta_key
+
 # Connect to the database
 deta = deta.Deta(deta_key)
 db = deta.Base("guestbook")
